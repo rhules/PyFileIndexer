@@ -1,6 +1,7 @@
 import random, os
 from os.path import join
 import subprocess
+from typing import List
 
 sets = []
 with open('..\\index', 'r', encoding='utf-8') as f:
@@ -10,13 +11,19 @@ f.closed
 arg = random.choice(sets)
 choices = []
 for root, dirs, files in os.walk(arg):
+    catch: List[str] = [".mkv", ".wmv", ".mp4", ".ogg", ".m4v"]
     for name in files:
-        if " 01" and (".mkv" or ".wmv" or ".mp4" or ".ogg") in name:
-            choices.append(join(arg, name))
+        if any(o in str(name) for o in catch):
+            if " 01" in str(name):
+                choices.append(join(root, name))
     if not choices:
         for name in files:
-            if ".mkv" or ".wmv" or ".mp4" or ".ogg" in name:
-                choices.append(join(arg, name))
-arg2 = random.choice(choices)
-print(str(arg2))
-subprocess.check_call(['open', arg2])
+            if any(o in str(name) for o in catch):
+                choices.append(join(root, name))
+if not choices:
+    print("no valid options")
+else:
+    arg2 = random.choice(choices)
+    print(str(arg2))
+    #subprocess.run(['open', arg2], check=True)
+    os.startfile(arg2, 'open')
