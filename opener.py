@@ -19,37 +19,38 @@ arg = ""
 if len(sys.argv) > 2:
     term = sys.argv[2]
     fullPath = False
+    exclusion = False
     if term == "fullpath" and len(sys.argv) > 3:
         term = sys.argv[3]
         fullPath = True
     options = []
+    if term.startswith("-"):
+        term = term[1:]
+        exclusion = True
     for name in sets:
         if fullPath:
-            if term in str(name):
+            if exclusion:
+                if term not in str(name):
+                    options.append(name)
+            elif term in str(name):
                 options.append(name)
         else:
             file = name.split("\\")
+            if exclusion:
+                if term not in file[len(file) -1 ]:
+                    options.append(name)
             if term in file[len(file) - 1]:
                 options.append(name)
     if options:
         arg = random.choice(options)
     else:
-        print("no files found")
+        print("no matching files found")
         sys.exit()
 else:
-    arg = random.choice(sets)
-#for name in files:
-#    if any(o in str(name) for o in catch):
-#        if " 01" in str(name):
-#            choices.append(join(root, name))
-#if not choices:
-#    for name in files:
-#        if any(o in str(name) for o in catch):
-#            choices.append(join(root, name))
-#if not choices:
-#    print("no valid options")
-#else:
-#arg2 = random.choice(choices)
+    if sets:
+        arg = random.choice(sets)
+    else:
+        print("no files found")
+        sys.exit()
 sys.stdout.buffer.write(str(arg).encode('utf8'))
-#subprocess.run(['open', arg2], check=True)
 os.startfile(arg, 'open')
