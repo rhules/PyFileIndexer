@@ -7,7 +7,8 @@ import sys
 sets = []
 index = "..\\index"
 if len(sys.argv) < 2:
-    print("too few arguments! format is \"python opener.py [index file]\" or \"python opener.py [index file] [argument]")
+    print("too few arguments! format is \"python opener.py [index file]\" or \"python opener.py [index file] "
+          "[arguments]")
 else:
     index = sys.argv[1]
 with open(index, 'r', encoding='utf-8') as f:
@@ -17,11 +18,19 @@ f.closed
 arg = ""
 if len(sys.argv) > 2:
     term = sys.argv[2]
+    fullPath = False
+    if term == "fullpath" and len(sys.argv) > 3:
+        term = sys.argv[3]
+        fullPath = True
     options = []
     for name in sets:
-        file = name.split("\\")
-        if term in file[len(file)-1]:
-            options.append(name)
+        if fullPath:
+            if term in str(name):
+                options.append(name)
+        else:
+            file = name.split("\\")
+            if term in file[len(file) - 1]:
+                options.append(name)
     if options:
         arg = random.choice(options)
     else:
