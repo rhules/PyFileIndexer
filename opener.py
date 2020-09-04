@@ -17,7 +17,7 @@ with open(index, 'r', encoding='utf-8') as f:
 f.closed
 arg = ""
 if len(sys.argv) > 2:
-    term = sys.argv[2]
+    term = sys.argv[2].lower()
     fullPath = False
     exclusion = False
     if term == "fullpath" and len(sys.argv) > 3:
@@ -30,9 +30,9 @@ if len(sys.argv) > 2:
     for name in sets:
         if fullPath:
             if exclusion:
-                if term not in str(name):
+                if term not in str(name).lower():
                     options.append(name)
-            elif term in str(name):
+            elif term in str(name).lower():
                 options.append(name)
         else:
             file = name.split("\\")
