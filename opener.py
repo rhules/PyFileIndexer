@@ -22,7 +22,7 @@ if len(sys.argv) > 2:
     fullPath = False
     exclusion = False
     if term == "fullpath" and len(sys.argv) > 3:
-        term = sys.argv[3]
+        term = sys.argv[3].lower()
         fullPath = True
     options = []
     if term.startswith("-"):

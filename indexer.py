@@ -5,7 +5,6 @@ from typing import List
 
 index = "..\\index"
 if len(sys.argv) < 2:
-    print("too few arguments! format is \"python indexer.py [directory path]\" or \"python indexer.py [directory path] [index file]")
     print("too few arguments! format is \"python indexer.py [directory path]\" or \"python indexer.py [directory "
           "path] [index file]")
     sys.exit()
