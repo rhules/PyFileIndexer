@@ -8,7 +8,7 @@ sets = []
 index = "..\\index"
 if len(sys.argv) < 2:
     print("too few arguments! format is \"python opener.py [index file]\" or \"python opener.py [index file] "
-          "[arguments]")
+          "[arguments]\"")
     sys.exit()
 else:
     index = sys.argv[1]
