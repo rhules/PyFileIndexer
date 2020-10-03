@@ -9,6 +9,7 @@ index = "..\\index"
 if len(sys.argv) < 2:
     print("too few arguments! format is \"python opener.py [index file]\" or \"python opener.py [index file] "
           "[arguments]")
+    sys.exit()
 else:
     index = sys.argv[1]
 with open(index, 'r', encoding='utf-8') as f:
@@ -39,7 +40,7 @@ if len(sys.argv) > 2:
             if exclusion:
                 if term not in file[len(file) -1 ]:
                     options.append(name)
-            if term in file[len(file) - 1]:
+            elif term in file[len(file) - 1]:
                 options.append(name)
     if options:
         arg = random.choice(options)
